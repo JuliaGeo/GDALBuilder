@@ -1,0 +1,40 @@
+language: julia
+os:
+  - linux
+julia:
+  - 0.6
+notifications:
+  email: false
+git:
+  depth: 99999999
+cache:
+  timeout: 1000
+  directories:
+    - downloads
+env:
+  global:
+    - BINARYBUILDER_DOWNLOADS_CACHE=downloads
+    - BINARYBUILDER_AUTOMATIC_APPLE=false
+sudo: required
+
+# Before anything else, get the latest versions of things
+before_script:
+  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryProvider.jl")'
+  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryBuilder.jl"); Pkg.build()'
+
+script:
+  - julia build_tarballs.jl
+
+
+deploy:
+    provider: releases
+    api_key:
+        # Note; this api_key is only valid for visr/GDALBuilder; you need
+        # to make your own: https://docs.travis-ci.com/user/deployment/releases/
+        secure: T6Rd+QUWk5ku7lTrKPeh/0pYwQ9isWSQHL6M8uGG+16hfIoOMVCofNGIzwUwM/AIanV6WXcR/vEaF6BSlXRG1W/36pZ3TDhfgT0XDsO6KDwit9nSRohNj8zE5iyW+2uwsr3BKy0K62D4iiPJXsAS58EOo9NlPP9uzVIGzQUzFwiRAHC5apUh4L70WDrHBvImVE8BewPUroZGnLw5UQvT1k7F4HmcDG3MncyK/E4miNEr4SymQOx6L6fm2/vLRn9Y+fxNn43VmlbvVfozIAALrQgNJu63VQgWCAIx/gp2Kp7wCqbTpX3ujmFp9s57cpGGvUlbu5n64AyVpMteqlxMpCmyeCKOVimrU+DqMLLJ0VGxJNacOkAxR3NZUGKvgWOk9fDFD+ADLIoN0WIuyVFVILXUocBqdnCbUaAHf9huEWUAqJwX5V+cCCg4fOfffzouXvlC9Xbagmp4KFS9Q9p/uUNFi0iLvN1cOF8OBgtx2DeeeFqpR94eFFcibJL4JL8yK+jiYSh4ukoTSqBkBfGNVBnDqT2L4Gm0kqhx3bJp1IN0FfhKrELZ+/rPlWwmP7yjPDoJOGueDe9tbxhgKB7I4l5QhQwCz5ax5xU3LMm48w9Pm0e8IePuBhHOHB/UHgyuZpSFg/0mJHiMvdHI8ffEcCQ6CvSxZh3XzkcBv/3Rj0Q=
+    file_glob: true
+    file: products/*
+    skip_cleanup: true
+    on:
+        repo: visr/GDALBuilder
+        tags: true
