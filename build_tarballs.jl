@@ -17,11 +17,12 @@ if [[ ${target} == *-w64-mingw* ]]; then
     EXTRA_CONFIGURE_FLAGS="LDFLAGS=-L$prefix/bin"
 fi
 
-./configure --prefix=$prefix --host=$target --with-geos=$prefix/bin/geos-config --with-static-proj4=$prefix --with-libz=$prefix $EXTRA_CONFIGURE_FLAGS
-make -j4
+./configure --prefix=$prefix --host=$target $EXTRA_CONFIGURE_FLAGS \
+    --with-geos=$prefix/bin/geos-config \
+    --with-static-proj4=$prefix \
+    --with-libz=$prefix
+make -j${nproc}
 make install
-
-
 """
 
 # These are the platforms we will build for by default, unless further
