@@ -34,9 +34,9 @@ platforms = [
 
 # The products that we will ensure are always built
 products(prefix) = [
+    LibraryProduct(prefix, "libgdal", :libdal),
     ExecutableProduct(prefix, "gdalinfo", :gdalinfo),
     ExecutableProduct(prefix, "gdalwarp", :gdalwarp),
-    ExecutableProduct(prefix, "libgdal", :libgdal),
     ExecutableProduct(prefix, "gdal_translate", :gdal_translate),
     ExecutableProduct(prefix, "ogr2ogr", :ogr2ogr),
     ExecutableProduct(prefix, "ogrinfo", :ogrinfo)
