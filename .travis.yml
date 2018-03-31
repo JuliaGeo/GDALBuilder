@@ -12,11 +12,9 @@ cache:
   directories:
     - downloads
 env:
-  # MACOSX target see https://lists.osgeo.org/pipermail/gdal-dev/2017-April/046531.html
   global:
     - BINARYBUILDER_DOWNLOADS_CACHE=downloads
     - BINARYBUILDER_AUTOMATIC_APPLE=true
-    - MACOSX_DEPLOYMENT_TARGET=10.9
   # Our build takes too long for one job, so split targets across multiple jobs
   matrix:
     - TARGET=i686-linux-gnu
