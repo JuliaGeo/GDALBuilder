@@ -12,19 +12,12 @@ script = raw"""
 cd $WORKSPACE/srcdir
 cd gdal-2.2.4/
 
-# On OSX we need a small patch, see https://lists.osgeo.org/pipermail/gdal-dev/2017-May/046634.html
-echo '383c383
-< #ifndef HAVE_CXX11
----
-> #if defined (__APPLE__) || !defined (HAVE_CXX11)' > osx.patch
-patch port/cpl_string.h < osx.patch
-
 # On Windows platforms, our ./configure invocation differs a bit
 if [[ ${target} == *-w64-mingw* ]]; then
     EXTRA_CONFIGURE_FLAGS="LDFLAGS=-L$prefix/bin"
 fi
 
-./configure --prefix=$prefix --host=$target $EXTRA_CONFIGURE_FLAGS \
+./configure --prefix=$prefix --host=$target "CXXFLAGS=-std=c++11" $EXTRA_CONFIGURE_FLAGS \
     --with-geos=$prefix/bin/geos-config \
     --with-static-proj4=$prefix \
     --with-libz=$prefix
