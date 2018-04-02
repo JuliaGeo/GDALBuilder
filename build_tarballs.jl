@@ -17,7 +17,7 @@ if [[ ${target} == *-w64-mingw* ]]; then
     EXTRA_CONFIGURE_FLAGS="LDFLAGS=-L$prefix/bin"
 fi
 
-./configure --prefix=$prefix --host=$target "CXXFLAGS=-std=c++11" $EXTRA_CONFIGURE_FLAGS \
+./configure --prefix=$prefix --host=$target $EXTRA_CONFIGURE_FLAGS \
     --with-geos=$prefix/bin/geos-config \
     --with-static-proj4=$prefix \
     --with-libz=$prefix
