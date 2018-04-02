@@ -15,6 +15,7 @@ env:
   global:
     - BINARYBUILDER_DOWNLOADS_CACHE=downloads
     - BINARYBUILDER_AUTOMATIC_APPLE=true
+    - MACOSX_DEPLOYMENT_TARGET=10.10
   # Our build takes too long for one job, so split targets across multiple jobs
   matrix:
     - TARGET=x86_64-apple-darwin14
