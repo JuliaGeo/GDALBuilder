@@ -50,8 +50,8 @@ products(prefix) = [
 
 # Dependencies that must be installed before this package can be built
 dependencies = [
-    "https://github.com/JuliaGeo/GEOSBuilder/releases/download/v3.6.2-0/build.jl",
-    "https://github.com/JuliaGeo/PROJBuilder/releases/download/v4.9.3-0/build.jl",
+    "https://github.com/JuliaGeo/GEOSBuilder/releases/download/v3.6.2-1/build.jl",
+    "https://github.com/JuliaGeo/PROJBuilder/releases/download/v4.9.3-1/build.jl",
     "https://github.com/staticfloat/ZlibBuilder/releases/download/v1.2.11-3/build.jl"
 ]
 
