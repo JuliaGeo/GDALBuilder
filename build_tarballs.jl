@@ -40,12 +40,12 @@ platforms = [
 
 # The products that we will ensure are always built
 products(prefix) = [
-    LibraryProduct(prefix, "libgdal", :libdal),
-    ExecutableProduct(prefix, "gdalinfo", :gdalinfo),
-    ExecutableProduct(prefix, "gdalwarp", :gdalwarp),
-    ExecutableProduct(prefix, "gdal_translate", :gdal_translate),
-    ExecutableProduct(prefix, "ogr2ogr", :ogr2ogr),
-    ExecutableProduct(prefix, "ogrinfo", :ogrinfo)
+    LibraryProduct(prefix, "libgdal", :libgdal),
+    ExecutableProduct(prefix, "gdalinfo", :gdalinfo_path),
+    ExecutableProduct(prefix, "gdalwarp", :gdalwarp_path),
+    ExecutableProduct(prefix, "gdal_translate", :gdal_translate_path),
+    ExecutableProduct(prefix, "ogr2ogr", :ogr2ogr_path),
+    ExecutableProduct(prefix, "ogrinfo", :ogrinfo_path)
 ]
 
 # Dependencies that must be installed before this package can be built
