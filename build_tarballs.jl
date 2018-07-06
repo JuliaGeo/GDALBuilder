@@ -52,9 +52,9 @@ products(prefix) = [
 
 # Dependencies that must be installed before this package can be built
 dependencies = [
-    "https://github.com/JuliaGeo/GEOSBuilder/releases/download/v3.6.2-2/build.jl",
-    "https://github.com/JuliaGeo/PROJBuilder/releases/download/v4.9.3-2/build.jl",
-    "https://github.com/staticfloat/ZlibBuilder/releases/download/v1.2.11-3/build.jl"
+    "https://github.com/JuliaGeo/GEOSBuilder/releases/download/v3.6.2-3/build_GEOS.v3.6.2.jl",
+    "https://github.com/JuliaGeo/PROJBuilder/releases/download/v4.9.3-3/build_PROJ.v4.9.3.jl",
+    "https://github.com/bicycle1885/ZlibBuilder/releases/download/v1.0.1/build_Zlib.v1.2.11.jl"
 ]
 
 # Build the tarballs, and possibly a `build.jl` as well.
