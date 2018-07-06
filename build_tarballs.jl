@@ -1,16 +1,17 @@
 using BinaryBuilder
 
+GDALVERSION = v"2.3.1"
+
 # Collection of sources required to build GDAL
 sources = [
-    "https://download.osgeo.org/gdal/2.3.0/gdal-2.3.0.tar.xz" =>
-    "6f75e49aa30de140525ccb58688667efe3a2d770576feb7fbc91023b7f552aa2",
-
+    "https://download.osgeo.org/gdal/$GDALVERSION/gdal-$GDALVERSION.tar.xz" =>
+    "9c4625c45a3ee7e49a604ef221778983dd9fd8104922a87f20b99d9bedb7725a",
 ]
 
 # Bash recipe for building across all platforms
 script = raw"""
 cd $WORKSPACE/srcdir
-cd gdal-2.3.0/
+cd gdal-$GDALVERSION/
 
 # On Windows platforms, our ./configure invocation differs a bit
 if [[ ${target} == *-w64-mingw* ]]; then
@@ -57,4 +58,3 @@ dependencies = [
 
 # Build the tarballs, and possibly a `build.jl` as well.
 build_tarballs(ARGS, "GDAL", sources, script, platforms, products, dependencies)
-
