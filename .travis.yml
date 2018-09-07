@@ -2,7 +2,7 @@ language: julia
 os:
   - linux
 julia:
-  - 0.6
+  - 0.7
 notifications:
   email: false
 git:
@@ -35,11 +35,12 @@ jobs:
 
 # Before anything else, get the latest versions of things
 before_script:
-  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryProvider.jl")'
-  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryBuilder.jl"); Pkg.build()'
+  - julia --color=yes -e 'using Pkg;
+      Pkg.add(PackageSpec(name="BinaryProvider", rev="master"));
+      Pkg.add(PackageSpec(name="BinaryBuilder", rev="master"))'
 
 script:
-  - julia build_tarballs.jl $TARGET
+  - julia --color=yes build_tarballs.jl $TARGET
 
 deploy:
     provider: releases
