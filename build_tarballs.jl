@@ -1,18 +1,18 @@
 using BinaryBuilder
 
 
-src_version = v"2.3.1"  # also change in raw script string
+src_version = v"2.2.4"  # also change in raw script string
 
 # Collection of sources required to build GDAL
 sources = [
-    "https://download.osgeo.org/gdal/$src_version/gdal-$src_version.tar.xz" =>
-    "9c4625c45a3ee7e49a604ef221778983dd9fd8104922a87f20b99d9bedb7725a",
+    "https://download.osgeo.org/gdal/2.2.4/gdal-2.2.4.tar.xz" =>
+    "441eb1d1acb35238ca43a1a0a649493fc91fdcbab231d0747e9d462eea192278",
 ]
 
 # Bash recipe for building across all platforms
 script = raw"""
 cd $WORKSPACE/srcdir
-cd gdal-2.3.1/
+cd gdal-2.2.4/
 
 # On Windows platforms, our ./configure invocation differs a bit
 if [[ ${target} == *-w64-mingw* ]]; then
@@ -54,7 +54,7 @@ products(prefix) = [
 dependencies = [
     "https://github.com/JuliaGeo/GEOSBuilder/releases/download/v3.6.2-3/build_GEOS.v3.6.2.jl",
     "https://github.com/JuliaGeo/PROJBuilder/releases/download/v4.9.3-3/build_PROJ.v4.9.3.jl",
-    "https://github.com/bicycle1885/ZlibBuilder/releases/download/v1.0.1/build_Zlib.v1.2.11.jl"
+    "https://github.com/bicycle1885/ZlibBuilder/releases/download/v1.0.2/build_Zlib.v1.2.11.jl"
 ]
 
 # Build the tarballs, and possibly a `build.jl` as well.
