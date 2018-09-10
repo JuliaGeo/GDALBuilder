@@ -14,6 +14,9 @@ script = raw"""
 cd $WORKSPACE/srcdir
 cd gdal-2.2.4/
 
+# Show options in the log
+./configure --help
+
 # On Windows platforms, our ./configure invocation differs a bit
 if [[ ${target} == *-w64-mingw* ]]; then
     EXTRA_CONFIGURE_FLAGS="LDFLAGS=-L$prefix/bin"
@@ -25,6 +28,9 @@ fi
     --with-libz=$prefix
 make -j${nproc}
 make install
+
+# delete static archives to reduce size (#4)
+rm -f $prefix/lib/*.a
 """
 
 # These are the platforms we will build for by default, unless further
