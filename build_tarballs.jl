@@ -49,11 +49,25 @@ platforms = [
 # The products that we will ensure are always built
 products(prefix) = [
     LibraryProduct(prefix, "libgdal", :libgdal),
-    ExecutableProduct(prefix, "gdalinfo", :gdalinfo_path),
-    ExecutableProduct(prefix, "gdalwarp", :gdalwarp_path),
+    ExecutableProduct(prefix, "gdal_contour", :gdal_contour_path),
+    ExecutableProduct(prefix, "gdal_grid", :gdal_grid_path),
+    ExecutableProduct(prefix, "gdal_rasterize", :gdal_rasterize_path),
     ExecutableProduct(prefix, "gdal_translate", :gdal_translate_path),
+    ExecutableProduct(prefix, "gdaladdo", :gdaladdo_path),
+    ExecutableProduct(prefix, "gdalbuildvrt", :gdalbuildvrt_path),
+    ExecutableProduct(prefix, "gdaldem", :gdaldem_path),
+    ExecutableProduct(prefix, "gdalinfo", :gdalinfo_path),
+    ExecutableProduct(prefix, "gdallocationinfo", :gdallocationinfo_path),
+    ExecutableProduct(prefix, "gdalmanage", :gdalmanage_path),
+    ExecutableProduct(prefix, "gdalsrsinfo", :gdalsrsinfo_path),
+    ExecutableProduct(prefix, "gdaltindex", :gdaltindex_path),
+    ExecutableProduct(prefix, "gdaltransform", :gdaltransform_path),
+    ExecutableProduct(prefix, "gdalwarp", :gdalwarp_path),
+    ExecutableProduct(prefix, "nearblack", :nearblack_path),
     ExecutableProduct(prefix, "ogr2ogr", :ogr2ogr_path),
-    ExecutableProduct(prefix, "ogrinfo", :ogrinfo_path)
+    ExecutableProduct(prefix, "ogrinfo", :ogrinfo_path),
+    ExecutableProduct(prefix, "ogrlineref", :ogrlineref_path),
+    ExecutableProduct(prefix, "ogrtindex", :ogrtindex_path)
 ]
 
 # Dependencies that must be installed before this package can be built
