@@ -25,7 +25,9 @@ fi
 ./configure --prefix=$prefix --host=$target $EXTRA_CONFIGURE_FLAGS \
     --with-geos=$prefix/bin/geos-config \
     --with-static-proj4=$prefix \
-    --with-libz=$prefix
+    --with-libz=$prefix \
+    --with-sqlite3=$prefix \
+    --with-curl=$prefix/bin/curl-config
 make -j${nproc}
 make install
 
@@ -74,7 +76,9 @@ products(prefix) = [
 dependencies = [
     "https://github.com/JuliaGeo/GEOSBuilder/releases/download/v3.6.2-3/build_GEOS.v3.6.2.jl",
     "https://github.com/JuliaGeo/PROJBuilder/releases/download/v4.9.3-3/build_PROJ.v4.9.3.jl",
-    "https://github.com/bicycle1885/ZlibBuilder/releases/download/v1.0.2/build_Zlib.v1.2.11.jl"
+    "https://github.com/bicycle1885/ZlibBuilder/releases/download/v1.0.2/build_Zlib.v1.2.11.jl",
+    "https://github.com/JuliaDatabases/SQLiteBuilder/releases/download/v0.9.0/build_SQLiteBuilder.v0.1.0.jl",
+    "https://github.com/JuliaWeb/LibCURLBuilder/releases/download/v0.3.1/build_LibCURL.v7.61.0.jl"
 ]
 
 # Build the tarballs, and possibly a `build.jl` as well.
