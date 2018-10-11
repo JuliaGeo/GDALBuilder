@@ -1,18 +1,18 @@
 using BinaryBuilder
 
 
-src_version = v"2.2.4"  # also change in raw script string
+src_version = v"2.3.2"  # also change in raw script string
 
 # Collection of sources required to build GDAL
 sources = [
-    "https://download.osgeo.org/gdal/2.2.4/gdal-2.2.4.tar.xz" =>
-    "441eb1d1acb35238ca43a1a0a649493fc91fdcbab231d0747e9d462eea192278",
+    "https://download.osgeo.org/gdal/$src_version/gdal-$src_version.tar.xz" =>
+    "3f6d78fe8807d1d6afb7bed27394f19467840a82bc36d65e66316fa0aa9d32a4",
 ]
 
 # Bash recipe for building across all platforms
 script = raw"""
 cd $WORKSPACE/srcdir
-cd gdal-2.2.4/
+cd gdal-$src_version/
 
 # Show options in the log
 ./configure --help
