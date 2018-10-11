@@ -12,7 +12,7 @@ sources = [
 # Bash recipe for building across all platforms
 script = raw"""
 cd $WORKSPACE/srcdir
-cd gdal-$src_version/
+cd gdal-2.3.2/
 
 # Show options in the log
 ./configure --help
