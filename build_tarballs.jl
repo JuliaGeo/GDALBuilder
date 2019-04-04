@@ -22,12 +22,11 @@ cd gdal-2.4.1/
     --with-static-proj4=$prefix \
     --with-libz=$prefix \
     --with-sqlite3=$prefix \
-    --with-curl=$prefix/bin/curl-config
+    --with-curl=$prefix/bin/curl-config \
+    --enable-shared=yes \
+    --enable-static=no
 make -j${nproc}
 make install
-
-# delete static archives to reduce size (#4)
-rm -f $prefix/lib/*.a
 """
 
 # These are the platforms we will build for by default, unless further
