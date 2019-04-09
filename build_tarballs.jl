@@ -24,7 +24,8 @@ cd gdal-2.4.1/
     --with-sqlite3=$prefix \
     --with-curl=$prefix/bin/curl-config \
     --enable-shared=yes \
-    --enable-static=no
+    --enable-static=no \
+    --without-libtool
 make -j${nproc}
 make install
 """
