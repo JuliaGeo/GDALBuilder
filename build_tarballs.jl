@@ -14,6 +14,12 @@ script = raw"""
 cd $WORKSPACE/srcdir
 cd gdal-2.4.1/
 
+# Windows builds gave a libtool issue,
+# Linux gave an issue on some builds without it.
+if [[ ${target} == *w64-mingw32* ]]; then
+    LIBTOOL_USAGE=--without-libtool
+fi
+
 # Show options in the log
 ./configure --help
 
@@ -23,9 +29,10 @@ cd gdal-2.4.1/
     --with-libz=$prefix \
     --with-sqlite3=$prefix \
     --with-curl=$prefix/bin/curl-config \
+    --without-python \
     --enable-shared=yes \
     --enable-static=no \
-    --without-libtool
+    ${LIBTOOL_USAGE}
 make -j${nproc}
 make install
 """
