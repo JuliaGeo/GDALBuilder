@@ -25,11 +25,11 @@ fi
 
 ./configure --prefix=$prefix --host=$target \
     --with-geos=$prefix/bin/geos-config \
-    --with-static-proj4=$prefix \
+    --with-proj=$prefix \
     --with-libz=$prefix \
     --with-sqlite3=$prefix \
     --with-curl=$prefix/bin/curl-config \
-    --without-python \
+    --with-python=no \
     --enable-shared=yes \
     --enable-static=no \
     ${LIBTOOL_USAGE}
