@@ -1,18 +1,18 @@
 using BinaryBuilder
 
 
-src_version = v"2.4.1"  # also change in raw script string
+src_version = v"3.0.0"  # also change in raw script string
 
 # Collection of sources required to build GDAL
 sources = [
     "https://download.osgeo.org/gdal/$src_version/gdal-$src_version.tar.xz" =>
-    "fd51b4900b2fc49b98d8714f55fc8a78ebfd07218357f93fb796791115a5a1ad",
+    "ad316fa052d94d9606e90b20a514b92b2dd64e3142dfdbd8f10981a5fcd5c43e",
 ]
 
 # Bash recipe for building across all platforms
 script = raw"""
 cd $WORKSPACE/srcdir
-cd gdal-2.4.1/
+cd gdal-3.0.0/
 
 # Windows builds gave a libtool issue,
 # Linux gave an issue on some builds without it.
@@ -76,8 +76,8 @@ products(prefix) = [
 
 # Dependencies that must be installed before this package can be built
 dependencies = [
-    "https://github.com/JuliaGeo/GEOSBuilder/releases/download/v3.7.1-5/build_GEOS.v3.7.1.jl",
-    "https://github.com/JuliaGeo/PROJBuilder/releases/download/v5.2.0-0/build_PROJ.v5.2.0.jl",
+    "https://github.com/JuliaGeo/GEOSBuilder/releases/download/v3.7.2-0/build_GEOS.v3.7.2.jl",
+    "https://github.com/JuliaGeo/PROJBuilder/releases/download/v6.0.0-1/build_PROJ.v6.0.0.jl",
     "https://github.com/bicycle1885/ZlibBuilder/releases/download/v1.0.4/build_Zlib.v1.2.11.jl",
     "https://github.com/JuliaDatabases/SQLiteBuilder/releases/download/v0.9.0/build_SQLiteBuilder.v0.1.0.jl",
     "https://github.com/JuliaWeb/LibCURLBuilder/releases/download/v0.4.0/build_LibCURL.v7.64.0.jl"
