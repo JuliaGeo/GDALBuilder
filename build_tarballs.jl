@@ -77,10 +77,10 @@ products(prefix) = [
 # Dependencies that must be installed before this package can be built
 dependencies = [
     "https://github.com/JuliaGeo/GEOSBuilder/releases/download/v3.7.2-0/build_GEOS.v3.7.2.jl",
-    "https://github.com/JuliaGeo/PROJBuilder/releases/download/v6.0.0-1/build_PROJ.v6.0.0.jl",
+    "https://github.com/JuliaGeo/PROJBuilder/releases/download/v6.1.0-1/build_PROJ.v6.1.0.jl",
     "https://github.com/bicycle1885/ZlibBuilder/releases/download/v1.0.4/build_Zlib.v1.2.11.jl",
-    "https://github.com/JuliaDatabases/SQLiteBuilder/releases/download/v0.9.0/build_SQLiteBuilder.v0.1.0.jl",
-    "https://github.com/JuliaWeb/LibCURLBuilder/releases/download/v0.4.0/build_LibCURL.v7.64.0.jl"
+    "https://github.com/JuliaDatabases/SQLiteBuilder/releases/download/v0.10.0/build_SQLite.v3.28.0.jl",
+    "https://github.com/JuliaWeb/LibCURLBuilder/releases/download/v0.5.1/build_LibCURL.v7.64.1.jl"
 ]
 
 # Build the tarballs, and possibly a `build.jl` as well.
