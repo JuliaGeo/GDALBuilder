@@ -18,6 +18,13 @@ cd gdal-3.0.0/
 # Linux gave an issue on some builds without it.
 if [[ ${target} == *w64-mingw32* ]]; then
     LIBTOOL_USAGE=--without-libtool
+    # Symlink libproj for Windows 
+    # TODO Fix @ ProjBuilder
+    ln -s $prefix/lib/libproj_6_1.dll.a $prefix/lib/libproj.dll.a
+elif [[ ${target} == *freebsd* ]]; then
+    # Help FreeBSD finding the right compiler
+    export CC="ccache gcc"
+    export CXX="ccache g++"
 fi
 
 # Show options in the log
