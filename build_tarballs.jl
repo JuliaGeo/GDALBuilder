@@ -14,17 +14,16 @@ script = raw"""
 cd $WORKSPACE/srcdir
 cd gdal-3.0.0/
 
-# Windows builds gave a libtool issue,
-# Linux gave an issue on some builds without it.
 if [[ ${target} == *w64-mingw32* ]]; then
-    LIBTOOL_USAGE=--without-libtool
-    # Symlink libproj for Windows 
-    # TODO Fix @ ProjBuilder
+    # Symlink libproj for Windows, else configure couldn't find it
+    # TODO fix in PROJBuilder or in GDAL configure?
     ln -s $prefix/lib/libproj_6_1.dll.a $prefix/lib/libproj.dll.a
 elif [[ ${target} == *freebsd* ]]; then
-    # Help FreeBSD finding the right compiler
-    export CC="ccache gcc"
-    export CXX="ccache g++"
+    # FreeBSD's default Clang ran into issues with configure
+    # which seemed to think it was the GNU compiler. Therefore,
+    # let's just use the GNU compiler instead.
+    CC=gcc
+    CXX=g++
 fi
 
 # Show options in the log
@@ -39,7 +38,9 @@ fi
     --with-python=no \
     --enable-shared=yes \
     --enable-static=no \
-    ${LIBTOOL_USAGE}
+    "CC=$CC" \
+    "CXX=$CXX"
+
 make -j${nproc}
 make install
 """
