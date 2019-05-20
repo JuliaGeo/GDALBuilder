@@ -15,6 +15,9 @@ cd $WORKSPACE/srcdir
 cd gdal-3.0.0/
 
 if [[ ${target} == *w64-mingw32* ]]; then
+    # Windows builds gave a libtool issue,	
+    # Linux gave an issue on some builds without it.
+    LIBTOOL_USAGE=--without-libtool
     # Symlink libproj for Windows, else configure couldn't find it
     # TODO fix in PROJBuilder or in GDAL configure?
     ln -s $prefix/lib/libproj_6_1.dll.a $prefix/lib/libproj.dll.a
@@ -39,7 +42,8 @@ fi
     --enable-shared=yes \
     --enable-static=no \
     "CC=$CC" \
-    "CXX=$CXX"
+    "CXX=$CXX" \
+    ${LIBTOOL_USAGE}
 
 make -j${nproc}
 make install
