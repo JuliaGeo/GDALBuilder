@@ -46,7 +46,10 @@ fi
 
 make -j${nproc}
 make install
-strip $prefix/bin/*.dll
+
+if [[ ${target} == *w64-mingw32* ]]; then
+    strip $prefix/bin/*.dll
+fi
 """
 
 # These are the platforms we will build for by default, unless further
