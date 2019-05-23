@@ -15,12 +15,13 @@ cd $WORKSPACE/srcdir
 cd gdal-3.0.0/
 
 if [[ ${target} == *w64-mingw32* ]]; then
-    # Windows builds gave a libtool issue,	
-    # Linux gave an issue on some builds without it.
-    LIBTOOL_USAGE=--without-libtool
     # Symlink libproj for Windows, else configure couldn't find it
     # TODO fix in PROJBuilder or in GDAL configure?
     ln -s $prefix/lib/libproj_6_1.dll.a $prefix/lib/libproj.dll.a
+    # Also symlink the library folder of mingw, so libstdc++ and
+    # others can be found. The path is ignored by BinaryBuilder.
+    mkdir $prefix/$target
+    ln -s /opt/$target/$target/lib $prefix/$target/lib
 elif [[ ${target} == *freebsd* ]]; then
     # FreeBSD's default Clang ran into issues with configure
     # which seemed to think it was the GNU compiler. Therefore,
@@ -31,7 +32,6 @@ fi
 
 # Show options in the log
 ./configure --help
-
 ./configure --prefix=$prefix --host=$target \
     --with-geos=$prefix/bin/geos-config \
     --with-proj=$prefix \
@@ -39,14 +39,14 @@ fi
     --with-sqlite3=$prefix \
     --with-curl=$prefix/bin/curl-config \
     --with-python=no \
-    --enable-shared=yes \
-    --enable-static=no \
+    --enable-shared \
+    --disable-static \
     "CC=$CC" \
     "CXX=$CXX" \
-    ${LIBTOOL_USAGE}
 
 make -j${nproc}
 make install
+strip $prefix/bin/*.dll
 """
 
 # These are the platforms we will build for by default, unless further
