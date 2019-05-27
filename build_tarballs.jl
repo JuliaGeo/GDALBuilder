@@ -42,28 +42,25 @@ fi
     --enable-shared \
     --disable-static \
     "CC=$CC" \
-    "CXX=$CXX" \
+    "CXX=$CXX"
 
 make -j${nproc}
 make install
 
+# strip shared libraries to reduce filesize
 if [[ ${target} == *w64-mingw32* ]]; then
     strip $prefix/bin/*.dll
+elif [[ ${target} == *apple-darwin* ]]; then
+    :
+else
+    strip $prefix/lib/*.so
 fi
 """
 
 # These are the platforms we will build for by default, unless further
 # platforms are passed in on the command line
-platforms = [
-    BinaryProvider.Linux(:i686, :glibc),
-    BinaryProvider.Linux(:x86_64, :glibc),
-    BinaryProvider.Linux(:aarch64, :glibc),
-    BinaryProvider.Linux(:armv7l, :glibc),
-    BinaryProvider.Linux(:powerpc64le, :glibc),
-    BinaryProvider.MacOS(),
-    BinaryProvider.Windows(:i686),
-    BinaryProvider.Windows(:x86_64)
-]
+platforms = supported_platforms()
+platforms = expand_gcc_versions(platforms)
 
 # The products that we will ensure are always built
 products(prefix) = [

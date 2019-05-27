@@ -30,8 +30,8 @@ env:
     - TARGET=arm-linux-musleabihf
     - TARGET=x86_64-apple-darwin14
     - TARGET=x86_64-unknown-freebsd11.1
-    - TARGET=i686-w64-mingw32
-    - TARGET=x86_64-w64-mingw32
+    - TARGET=i686-w64-mingw32-gcc7
+    - TARGET=x86_64-w64-mingw32-gcc7
 sudo: required
 
 jobs:
