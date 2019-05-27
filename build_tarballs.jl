@@ -51,9 +51,9 @@ make install
 if [[ ${target} == *w64-mingw32* ]]; then
     strip $prefix/bin/*.dll
 elif [[ ${target} == *apple-darwin* ]]; then
-    strip $prefix/bin/*.dylib
+    strip $prefix/lib/*.dylib
 else
-    strip $prefix/bin/*.so
+    strip $prefix/lib/*.so
 fi
 """
 
