@@ -39,14 +39,13 @@ make install
 # GDAL
 
 cd $WORKSPACE/srcdir/gdal-3.0.2/
-
+mkdir $prefix/$target
 if [[ ${target} == *w64-mingw32* ]]; then
     # Symlink libproj for Windows, else configure couldn't find it
     # TODO fix in PROJBuilder or in GDAL configure?
     ln -s $prefix/lib/libproj_6_1.dll.a $prefix/lib/libproj.dll.a
     # Also symlink the library folder of mingw, so libstdc++ and
     # others can be found. The path is ignored by BinaryBuilder.
-    mkdir $prefix/$target
     ln -s /opt/$target/$target/lib $prefix/$target/lib
 elif [[ ${target} == *freebsd* ]]; then
     # FreeBSD's default Clang ran into issues with configure
@@ -58,13 +57,11 @@ elif [[ ${target} == *freebsd* ]]; then
 elif [[ ${target} == *64-linux* ]]; then
     # Symlink the library folder of mingw, so libstdc++ and
     # others can be found.
-    mkdir $prefix/$target
     ln -s /opt/$target/$target/lib $prefix/$target/lib
     ln -s /opt/$target/$target/lib64/*.so* $prefix/lib/
 elif [[ ${target} == *i686-linux* ]]; then
     # Symlink the library folder so libstdc++ and
     # others can be found.
-    mkdir $prefix/$target
     ln -s /opt/$target/$target/lib $prefix/$target/lib
     ln -s /opt/$target/$target/lib/*.so* $prefix/lib/
 fi
@@ -95,6 +92,15 @@ elif [[ ${target} == *apple-darwin* ]]; then
 else
     strip $prefix/lib/libgdal.so
 fi
+
+# Cleanup
+rm -rf $prefix/$target
+for f in $prefix/lib/*; do
+  case "$(readlink "$f")" in /opt/$target/$target/*)
+    rm "$f"
+    ;;
+  esac
+done
 """
 
 # These are the platforms we will build for by default, unless further
