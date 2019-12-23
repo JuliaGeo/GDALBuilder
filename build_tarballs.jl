@@ -81,7 +81,6 @@ fi
     --disable-static \
     "CC=$CC" \
     "CXX=$CXX"
-    #"CFLAGS=-Wl,-rpath-link=/opt/x86_64-linux-gnu/x86_64-linux-gnu/lib64"
 
 make -j${nproc}
 make install
