@@ -54,6 +54,7 @@ elif [[ ${target} == *freebsd* ]]; then
     # let's just use the GNU compiler instead.
     CC=gcc
     CXX=g++
+    CXXFLAGS=-D_GLIBCXX_USE_C99
 elif [[ ${target} == *64-linux* ]]; then
     # Symlink the library folder of mingw, so libstdc++ and
     # others can be found.
@@ -80,7 +81,8 @@ fi
     --enable-shared \
     --disable-static \
     "CC=$CC" \
-    "CXX=$CXX"
+    "CXX=$CXX" \
+    "CXXFLAGS=$CXXFLAGS"
 
 make -j${nproc}
 make install
