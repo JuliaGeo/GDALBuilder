@@ -1,18 +1,44 @@
 using BinaryBuilder
 
 
-src_version = v"3.0.0"  # also change in raw script string
+src_version = v"3.0.2"  # also change in raw script string
 
 # Collection of sources required to build GDAL
 sources = [
     "https://download.osgeo.org/gdal/$src_version/gdal-$src_version.tar.xz" =>
-    "ad316fa052d94d9606e90b20a514b92b2dd64e3142dfdbd8f10981a5fcd5c43e",
+    "c3765371ce391715c8f28bd6defbc70b57aa43341f6e94605f04fe3c92468983",
+    "https://curl.haxx.se/download/curl-7.64.1.tar.gz" =>
+    "432d3f466644b9416bc5b649d344116a753aeaa520c8beaf024a90cba9d3d35d",
 ]
 
 # Bash recipe for building across all platforms
 script = raw"""
-cd $WORKSPACE/srcdir
-cd gdal-3.0.0/
+
+# CURL
+
+cd $WORKSPACE/srcdir/curl-7.64.1
+# Configure and build
+./configure \
+    --prefix=$prefix \
+    --host=$target \
+    --with-mbedtls \
+    --without-ssl \
+    --disable-manual
+if [[ $target == *-w64-mingw32 ]]; then
+    LDFLAGS="$LDFLAGS -L$prefix/bin"
+elif [[ $target == x86_64-apple-darwin14 ]]; then
+    LDFLAGS="$LDFLAGS -L$prefix/lib -Wl,-rpath,$prefix/lib"
+else
+    LDFLAGS="$LDFLAGS -L$prefix/lib -Wl,-rpath-link,$prefix/lib"
+fi
+make -j${nproc} LDFLAGS="$LDFLAGS" CPPFLAGS="$CPPFLAGS -I$prefix/include"
+make install
+
+
+
+# GDAL
+
+cd $WORKSPACE/srcdir/gdal-3.0.2/
 
 if [[ ${target} == *w64-mingw32* ]]; then
     # Symlink libproj for Windows, else configure couldn't find it
@@ -28,6 +54,18 @@ elif [[ ${target} == *freebsd* ]]; then
     # let's just use the GNU compiler instead.
     CC=gcc
     CXX=g++
+elif [[ ${target} == *64-linux* ]]; then
+    # Symlink the library folder of mingw, so libstdc++ and
+    # others can be found.
+    mkdir $prefix/$target
+    ln -s /opt/$target/$target/lib $prefix/$target/lib
+    ln -s /opt/$target/$target/lib64/*.so* $prefix/lib/
+elif [[ ${target} == *i686-linux* ]]; then
+    # Symlink the library folder so libstdc++ and
+    # others can be found.
+    mkdir $prefix/$target
+    ln -s /opt/$target/$target/lib $prefix/$target/lib
+    ln -s /opt/$target/$target/lib/*.so* $prefix/lib/
 fi
 
 # Show options in the log
@@ -43,6 +81,7 @@ fi
     --disable-static \
     "CC=$CC" \
     "CXX=$CXX"
+    #"CFLAGS=-Wl,-rpath-link=/opt/x86_64-linux-gnu/x86_64-linux-gnu/lib64"
 
 make -j${nproc}
 make install
@@ -53,7 +92,7 @@ if [[ ${target} == *w64-mingw32* ]]; then
 elif [[ ${target} == *apple-darwin* ]]; then
     :
 else
-    strip $prefix/lib/*.so
+    strip $prefix/lib/libgdal.so
 fi
 """
 
@@ -65,6 +104,7 @@ platforms = expand_gcc_versions(platforms)
 # The products that we will ensure are always built
 products(prefix) = [
     LibraryProduct(prefix, "libgdal", :libgdal),
+    LibraryProduct(prefix, "libcurl", :libcurl),
     ExecutableProduct(prefix, "gdal_contour", :gdal_contour_path),
     ExecutableProduct(prefix, "gdal_grid", :gdal_grid_path),
     ExecutableProduct(prefix, "gdal_rasterize", :gdal_rasterize_path),
@@ -92,7 +132,7 @@ dependencies = [
     "https://github.com/JuliaGeo/PROJBuilder/releases/download/v6.1.0-1/build_PROJ.v6.1.0.jl",
     "https://github.com/bicycle1885/ZlibBuilder/releases/download/v1.0.4/build_Zlib.v1.2.11.jl",
     "https://github.com/JuliaDatabases/SQLiteBuilder/releases/download/v0.10.0/build_SQLite.v3.28.0.jl",
-    "https://github.com/JuliaWeb/LibCURLBuilder/releases/download/v0.5.1/build_LibCURL.v7.64.1.jl"
+    "https://github.com/JuliaWeb/MbedTLSBuilder/releases/download/v0.20.0/build_MbedTLS.v2.6.1.jl",
 ]
 
 # Build the tarballs, and possibly a `build.jl` as well.
