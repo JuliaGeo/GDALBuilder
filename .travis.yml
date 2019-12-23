@@ -43,8 +43,8 @@ jobs:
 # Before anything else, get the latest versions of things
 before_script:
   - julia --color=yes -e 'using Pkg;
-      Pkg.add(PackageSpec(name="BinaryProvider", rev="master"));
-      Pkg.add(PackageSpec(name="BinaryBuilder", rev="master"))'
+      Pkg.add(PackageSpec(name="BinaryProvider", rev="v0.5.8"));
+      Pkg.add(PackageSpec(name="BinaryBuilder", rev="v0.1.4"))'
 
 script:
   - julia --color=yes build_tarballs.jl $TARGET
