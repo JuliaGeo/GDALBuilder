@@ -84,13 +84,9 @@ fi
 make -j${nproc}
 make install
 
-# strip shared libraries to reduce filesize
+# strip Windows shared libraries to reduce filesize
 if [[ ${target} == *w64-mingw32* ]]; then
     strip $prefix/bin/*.dll
-elif [[ ${target} == *apple-darwin* ]]; then
-    :
-else
-    strip $prefix/lib/libgdal.so
 fi
 
 # Cleanup
