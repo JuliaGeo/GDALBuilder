@@ -19,15 +19,15 @@ env:
   # triplets come from
   # using BinaryBuilder; triplet.(supported_platforms())
   matrix:
-    - TARGET=i686-linux-gnu
-    - TARGET=x86_64-linux-gnu
-    - TARGET=aarch64-linux-gnu
-    - TARGET=arm-linux-gnueabihf
-    - TARGET=powerpc64le-linux-gnu
-    - TARGET=i686-linux-musl
-    - TARGET=x86_64-linux-musl
-    - TARGET=aarch64-linux-musl
-    - TARGET=arm-linux-musleabihf
+    - TARGET=i686-linux-gnu-gcc7
+    - TARGET=x86_64-linux-gnu-gcc7
+    - TARGET=aarch64-linux-gnu-gcc7
+    - TARGET=arm-linux-gnueabihf-gcc7
+    - TARGET=powerpc64le-linux-gnu-gcc7
+    - TARGET=i686-linux-musl-gcc7
+    - TARGET=x86_64-linux-musl-gcc7
+    - TARGET=aarch64-linux-musl-gcc7
+    - TARGET=arm-linux-musleabihf-gcc7
     - TARGET=x86_64-apple-darwin14
     - TARGET=x86_64-unknown-freebsd11.1
     - TARGET=i686-w64-mingw32-gcc7
