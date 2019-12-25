@@ -71,7 +71,6 @@ fi
 ./configure --prefix=$prefix --host=$target \
     --with-geos=$prefix/bin/geos-config \
     --with-proj=$prefix \
-    --without-libtool \
     --with-libz=$prefix \
     --with-sqlite3=$prefix \
     --with-curl=$prefix/bin/curl-config \
